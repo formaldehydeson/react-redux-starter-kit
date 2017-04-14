@@ -13,7 +13,7 @@ import Dashboard from 'components/Dashboard'
     implementing our wrapper around increment; the component doesn't care   */
 
 const mapActionCreators = {
-  DashboardVisitIncrement: () => dashboardVisitIncrement(1)
+  dashboardVisitIncrement: () => dashboardVisitIncrement(1)
 }
 
 const mapStateToProps = (state) => ({
