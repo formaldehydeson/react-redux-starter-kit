@@ -31,6 +31,9 @@ export const loginAsync = (loginObj) => {
       }, 200)
     }).then(() => {
 
+      console.log(loginObj.user)
+      console.log(loginObj.password)
+
       if (loginObj.user === 'przeor' && loginObj.password === 'mwp.io') {
         return 'www.mwp.io'
       } else {
@@ -49,5 +52,34 @@ export const loginAsync = (loginObj) => {
 }
 
 // ------------------------------------
+// Action Handlers
+// ------------------------------------
+const ACTION_HANDLERS = {
+  [SESSION_LOGIN_SUCCESS]: (state, action) => {
+    return Object.assign({}, state, {
+      loginToken: action.payload,
+      isNotLoggedIn: false
+    })
+  },
+  [SESSION_LOGIN_FAIL]: (state, action) => {
+    return Object.assign({}, state, {
+      loginToken: action.payload
+    })
+  }
+}
+
+
+// ------------------------------------
 // Reducer
 // ------------------------------------
+const initialState = {
+  count: 0,
+  isNotLoggedIn: true,
+  loginToken: 'none'
+}
+
+export default function sessionReducer (state = initialState, action) {
+  const handler = ACTION_HANDLERS[action.type]
+
+  return handler ? handler(state, action) : state
+}
